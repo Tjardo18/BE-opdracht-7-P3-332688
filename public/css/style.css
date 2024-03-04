@@ -1,0 +1,173 @@
+@import url('https://cdn.jsdelivr.net/npm/remixicon@latest/fonts/remixicon.css');
+@import url('https://unpkg.com/boxicons@latest/css/boxicons.min.css');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css');
+@import url('https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700;800;900&display=swap');
+
+@import url('modal.css');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-image: url(../img/jamin-achtergrond.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+img {
+    margin-top: 30px;
+    margin-bottom: 40px;
+    width: 500px;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.4);
+    border-radius: 12px;
+    backdrop-filter: blur(30px);
+    padding: 35px;
+    margin-bottom: 35px;
+}
+
+.title {
+    background-color: #bc1b8f;
+    border: 5px solid #e422b0;
+    border-radius: 12px;
+    width: fit-content;
+    padding: 0 10px;
+    margin-bottom: 10px;
+}
+
+h1 {
+    font-family: 'Mochiy Pop One', sans-serif;
+    cursor: default;
+    color: #fff;
+}
+
+h3 {
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    cursor: default;
+    font-weight: 600;
+}
+
+span {
+    color: #ff2287;
+    cursor: pointer;
+    font-weight: 500;
+
+}
+
+table {
+    font-family: 'Poppins', sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 10px;
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.3);
+    border-radius: 12px;
+}
+
+th,
+td {
+    text-align: left;
+    padding: 8px;
+}
+
+th {
+    font-weight: 600;
+    background-color: rgba(137, 73, 35, 0.4);
+    color: #fff;
+    cursor: pointer;
+}
+
+th:first-child {
+    border-radius: 12px 0 0 0;
+}
+
+th:last-child {
+    border-radius: 0 12px 0 0;
+}
+
+tbody > tr:last-child > td:first-child {
+    border-radius: 0 0 0 12px;
+}
+
+tbody > tr:last-child > td:last-child {
+    border-radius: 0 0 12px 0;
+}
+
+tr:nth-child(even) {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+tr:nth-child(odd) {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+tr:not(thead>tr):hover {
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+.highlight-column {
+    background-color: rgba(252, 156, 202, 0.2);
+}
+
+a {
+    text-decoration: none;
+}
+
+i {
+    font-size: 18px;
+    font-weight: 800;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+label {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    color: #fff;
+    align-self: flex-start;
+}
+
+input[type="number"],
+input[type="date"] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+input[type="submit"] {
+    width: fit-content;
+    padding: 0 10px;
+    border-radius: 12px;
+    background-color: #bc1b8f;
+    border: 5px solid #e422b0;
+    color: #fff;
+    cursor: pointer;
+    font-weight: 800;
+    font-family: 'Mochiy Pop One', sans-serif;
+    text-transform: uppercase;
+    font-size: 1.5rem;
+}
