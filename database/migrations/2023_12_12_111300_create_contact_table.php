@@ -10,13 +10,12 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('leverancier', function (Blueprint $table) {
+        Schema::create('contact', function (Blueprint $table) {
             $table->id();
-            $table->string('naam', 250);
-            $table->string('contactPersoon', 250);
-            $table->string('leverancierNummer', 250);
-            $table->string('mobiel', 11);
-            $table->foreignId('contactId')->constrained('contact');
+            $table->string('straat', 250);
+            $table->string('huisnummer', 10);
+            $table->string('postcode', 6);
+            $table->string('stad', 250);
             $table->boolean('isActief')->default(1);
             $table->string('opmerkingen', 250)->nullable();
             $table->timestamps(6);
@@ -28,6 +27,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('leverancier');
+        Schema::dropIfExists('contact');
     }
 };

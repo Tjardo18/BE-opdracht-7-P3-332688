@@ -16,7 +16,7 @@ class ProductPerAllergeenSeeder extends Seeder
         ProductPerAllergeen::insert([
             [
                 'productId' => 1,
-                'allergeenId' => 1,
+                'allergeenId' => 2,
                 'isActief' => 1,
                 'opmerkingen' => null,
                 'created_at' => now(),
@@ -24,7 +24,7 @@ class ProductPerAllergeenSeeder extends Seeder
             ],
             [
                 'productId' => 1,
-                'allergeenId' => 2,
+                'allergeenId' => 1,
                 'isActief' => 1,
                 'opmerkingen' => null,
                 'created_at' => now(),

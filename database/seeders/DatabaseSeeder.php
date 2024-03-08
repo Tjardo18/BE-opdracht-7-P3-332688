@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             MagazijnSeeder::class,
             AllergeenSeeder::class,
             ProductPerAllergeenSeeder::class,
+            ContactSeeder::class,
             LeverancierSeeder::class,
             ProductPerLeverancierSeeder::class,
         ]);
