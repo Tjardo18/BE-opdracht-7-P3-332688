@@ -2,21 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Leverancier;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class OverzichtLeverancierController extends Controller
 {
-    private $leverancierModel;
 
-    public function __construct(Leverancier $leverancierModel)
+    public function __construct()
     {
-        $this->leverancierModel = $leverancierModel;
     }
 
     public function index()
     {
-        $result = $this->leverancierModel->getLeverancierIndividual();
+        $result = DB::select('CALL getLeverancierIndividual()');
 
         $rows = "";
         foreach ($result as $leverancier) {

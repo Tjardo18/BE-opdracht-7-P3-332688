@@ -2,24 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Allergeen;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AllergeenController extends Controller
 {
-    private $allergieModel;
-
-    public function __construct(Allergeen $allergieModel)
+    public function __construct()
     {
-        $this->allergieModel = $allergieModel;
     }
 
     public function index($id)
     {
-        $result = $this->allergieModel->getAllergien($id);
-        $product = $this->allergieModel->getProduct($id);
+        $result = DB::select('CALL getAllergien(?)', [$id]);
+        $product = DB::select('CALL getProduct(?)', [$id]);
 
-        if ($result->isEmpty()) {
+        if (empty($result)) {
             $th = '';
             $rows = "<h1 style='text-align: center'>In dit product zitten geen stoffen die een<br>allergische reactie kan veroorzaken</h1>";
             header("Refresh: 4; url=/overzicht");

@@ -3,20 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Overzicht;
+use Illuminate\Support\Facades\DB;
 
 class OverzichtController extends Controller
 {
-    private $overzichtModel;
 
-    public function __construct(Overzicht $overzichtModel)
+    public function __construct()
     {
-        $this->overzichtModel = $overzichtModel;
     }
 
     public function index()
     {
-        $result = $this->overzichtModel->getOverzicht();
+        $result = DB::select('CALL getOverzicht()');
 
         $rows = "";
         foreach ($result as $overzicht) {

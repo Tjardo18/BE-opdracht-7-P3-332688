@@ -2,27 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Leverancier;
-use App\Models\ProductPerLeverancier;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class LeveringController extends Controller
 {
-    private $leverancierModel;
-    private $productPerLeverancierModel;
 
-    public function __construct(Leverancier $leverancierModel, ProductPerLeverancier $productPerLeverancierModel)
+    public function __construct()
     {
-        $this->leverancierModel = $leverancierModel;
-        $this->productPerLeverancierModel = $productPerLeverancierModel;
     }
 
     public function index($id)
     {
-        $result = $this->productPerLeverancierModel->getLeveringen($id);
-        $leverancier = $this->leverancierModel->getLeverancierById($id);
+        $result = DB::select('CALL getLeveringen(?)', [$id]);
+        $leverancier = DB::select('CALL getLeverancierById(?)', [$id]);
 
-        if ($result->isEmpty()) {
+        if (empty($result)) {
             $th = '';
             $rows = "<h1 style='text-align: center'>Dit bedrijf heeft tot nu toe geen producten geleverd aan Jamin</h1>";
             header("Refresh: 3; url=/leverancier-overzicht");

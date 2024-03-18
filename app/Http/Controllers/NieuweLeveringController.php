@@ -2,24 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Leverancier;
 use App\Models\Magazijn;
 use App\Models\ProductPerLeverancier;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class NieuweLeveringController extends Controller
 {
-    private $leverancierModel;
 
-    public function __construct(Leverancier $leverancierModel)
+    public function __construct()
     {
-        $this->leverancierModel = $leverancierModel;
     }
 
     public function index($id)
     {
-        $leverancierId = $this->leverancierModel->getLeverancierByProductId($id);
-        $leverancier = $this->leverancierModel->getLeverancierById($leverancierId[0]->leverancierId);
+        $leverancierId = DB::select('CALL getLeverancierByProductId(?)', [$id]);
+        $leverancier = DB::select('CALL getLeverancierById(?)', [$leverancierId[0]->leverancierId]);
 
         $data = [
             'title' => 'Nieuwe Levering',

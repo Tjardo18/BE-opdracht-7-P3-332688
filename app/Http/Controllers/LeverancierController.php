@@ -2,21 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Leverancier;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class LeverancierController extends Controller
 {
-    private $leverancierModel;
 
-    public function __construct(Leverancier $leverancierModel)
+    public function __construct()
     {
-        $this->leverancierModel = $leverancierModel;
     }
 
     public function index($id)
     {
-        $result = $this->leverancierModel->getLeverancier($id);
+        $result = DB::select('CALL getLeverancier(?)', [$id]);
 
         if ($result[0]->AantalAanwezig == 0) {
             $th = "";
