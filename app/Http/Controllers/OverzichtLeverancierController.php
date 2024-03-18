@@ -32,6 +32,11 @@ class OverzichtLeverancierController extends Controller
                         <i class='bx bxs-package' style='color: #ff2287;'></i>
                     </a>
                 </td>
+                <td>
+                    <a href='/details/$leverancier->id'>
+                        <i class='bx bxs-edit' style='color: #ff2287;'></i>
+                    </a>
+                </td>
                 </tr>";
         }
 

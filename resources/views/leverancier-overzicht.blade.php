@@ -32,6 +32,7 @@
         <th>Mobiel</th>
         <th>Aantal verschillende producten</th>
         <th>Toon producten</th>
+        <th>Details</th>
         </thead>
         <tbody>
         {!! $rows !!}
