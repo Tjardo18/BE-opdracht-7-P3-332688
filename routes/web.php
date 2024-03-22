@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LeverancierDetailsController;
 use App\Http\Controllers\LeveringController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OverzichtController;
@@ -27,3 +28,7 @@ Route::get('/leveringen/{id}', [LeveringController::class, 'index',])->name('lev
 Route::get('/nieuwe-levering/{id}', [NieuweLeveringController::class, 'index',])->name('nieuwe-leveringen.index');
 
 Route::post('/nieuwe-levering', [NieuweLeveringController::class, 'store'])->name('nieuwe-leveringen.store');
+
+Route::get('/leverancier-details/{id}', [LeverancierDetailsController::class, 'index',])->name('leverancier-details.index');
+
+Route::post('/leverancier-details', [LeverancierDetailsController::class, 'store'])->name('leverancier-details.store');
