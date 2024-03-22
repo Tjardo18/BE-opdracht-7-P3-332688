@@ -31,7 +31,7 @@ class OverzichtLeverancierController extends Controller
                     </a>
                 </td>
                 <td>
-                    <a href='/details/$leverancier->id'>
+                    <a href='/leverancier-details/$leverancier->id'>
                         <i class='bx bxs-edit' style='color: #ff2287;'></i>
                     </a>
                 </td>
