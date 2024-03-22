@@ -150,7 +150,8 @@ label {
 
 input[type="number"],
 input[type="date"],
-input[type="text"] {
+input[type="text"],
+input[type="tel"] {
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -159,7 +160,8 @@ input[type="text"] {
     border-radius: 4px;
 }
 
-input[type="submit"], .button {
+input[type="submit"],
+.button {
     width: fit-content;
     padding: 0 10px;
     border-radius: 12px;

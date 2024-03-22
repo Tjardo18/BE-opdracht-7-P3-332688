@@ -50,13 +50,13 @@ class LeverancierDetailsController extends Controller
             ]);
 
         Contact::where('id', request('contactId'))
-        ->update([
-            'straat' => request('straatnaam'),
-            'huisnummer' => request('huisnummer'),
-            'postcode' => request('postcode'),
-            'stad' => request('stad'),
-            'updated_at' => Carbon::now(),
-        ]);
+            ->update([
+                'straat' => request('straatnaam'),
+                'huisnummer' => request('huisnummer'),
+                'postcode' => request('postcode'),
+                'stad' => request('stad'),
+                'updated_at' => Carbon::now(),
+            ]);
 
         return redirect(route('leverancier-overzicht.index'));
     }

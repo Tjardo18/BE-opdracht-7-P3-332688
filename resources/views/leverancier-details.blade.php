@@ -41,7 +41,7 @@
         <input type="text" name="leverancierNummer" id="leverancierNummer"
                value="{{ $leverancierNummer }}" required>
         <label for="mobiel">Mobiel</label>
-        <input type="text" name="mobiel" id="mobiel"
+        <input type="tel" name="mobiel" id="mobiel" pattern="[0-9]{2}-[0-9]{8}" placeholder="06-12345678"
                value="{{ $mobiel }}" required>
         <label for="straatnaam">Straatnaam</label>
         <input type="text" name="straatnaam" id="straatnaam"
@@ -50,7 +50,7 @@
         <input type="text" name="huisnummer" id="huisnummer"
                value="{{ $huisnummer }}" required>
         <label for="postcode">Postcode</label>
-        <input type="text" name="postcode" id="postcode"
+        <input type="text" name="postcode" id="postcode" placeholder="1234AB"
                value="{{ $postcode }}" required>
         <label for="stad">Stad</label>
         <input type="text" name="stad" id="stad"
