@@ -15,16 +15,16 @@ return new class extends Migration {
         DB::unprepared("CREATE PROCEDURE getAllergien(IN p_id INT)
                 BEGIN
                     SELECT
-                        allergeen.naam AS ANaam,
-                        allergeen.omschrijving
+                        a.naam AS ANaam,
+                        a.omschrijving
                     FROM
-                        allergeen
+                        allergeen a
                     INNER JOIN
-                        productperallergeen ON productperallergeen.allergeenId = allergeen.id
+                        productperallergeen ppa ON ppa.allergeenId = a.id
                     INNER JOIN
-                        product ON product.id = productperallergeen.productId
+                        product p ON p.id = ppa.productId
                     WHERE
-                        product.id = p_id
+                        p.id = p_id
                     ORDER BY
                         ANaam ASC;
                 END");
@@ -33,57 +33,57 @@ return new class extends Migration {
         DB::unprepared("CREATE PROCEDURE getProduct(IN p_id INT)
                     BEGIN
                         SELECT
-                            product.naam AS PNaam,
-                            product.barcode
+                            p.naam AS PNaam,
+                            p.barcode
                         FROM
-                            product
+                            product p
                         WHERE
-                            product.id = p_id;
+                            p.id = p_id;
                     END");
 
         DB::select("DROP PROCEDURE IF EXISTS getLeverancier");
         DB::unprepared("CREATE PROCEDURE getLeverancier(IN p_id INT)
                     BEGIN
                         SELECT
-                            leverancier.naam AS LNaam,
-                            leverancier.contactPersoon,
-                            leverancier.leverancierNummer,
-                            leverancier.mobiel,
-                            product.naam AS PNaam,
-                            IFNULL(magazijn.aantalAanwezig, 0) AS AantalAanwezig,
-                            productperleverancier.datumLevering,
-                            productperleverancier.aantal,
-                            productperleverancier.datumEerstVolgendeLevering AS DatumEVL
+                            l.naam AS LNaam,
+                            l.contactPersoon,
+                            l.leverancierNummer,
+                            l.mobiel,
+                            p.naam AS PNaam,
+                            IFNULL(m.aantalAanwezig, 0) AS AantalAanwezig,
+                            ppl.datumLevering,
+                            ppl.aantal,
+                            ppl.datumEerstVolgendeLevering AS DatumEVL
                         FROM
-                            leverancier
+                            leverancier l
                         INNER JOIN
-                            productperleverancier ON leverancier.id = productperleverancier.leverancierId
+                            productperleverancier ppl ON l.id = ppl.leverancierId
                         INNER JOIN
-                            product ON productperleverancier.productId = product.id
+                            product p ON ppl.productId = p.id
                         LEFT JOIN
-                            magazijn ON product.id = magazijn.productId
+                            magazijn m ON p.id = m.productId
                         WHERE
-                            product.id = p_id
+                            p.id = p_id
                         ORDER BY
-                            productperleverancier.datumLevering ASC;
+                            ppl.datumLevering ASC;
                     END");
 
         DB::select("DROP PROCEDURE IF EXISTS getLeverancierIndividual");
         DB::unprepared("CREATE PROCEDURE getLeverancierIndividual()
                     BEGIN
                         SELECT
-                            leverancier.id,
-                            leverancier.naam AS Naam,
-                            leverancier.contactPersoon AS ContactPersoon,
-                            leverancier.leverancierNummer AS LeverancierNummer,
-                            leverancier.mobiel AS Mobiel,
-                            COUNT(DISTINCT productperleverancier.productId) AS ProductCount
+                            l.id,
+                            l.naam AS Naam,
+                            l.contactPersoon AS ContactPersoon,
+                            l.leverancierNummer AS LeverancierNummer,
+                            l.mobiel AS Mobiel,
+                            COUNT(DISTINCT ppl.productId) AS ProductCount
                         FROM
-                            leverancier
+                            leverancier l
                         LEFT JOIN
-                            productperleverancier ON leverancier.id = productperleverancier.leverancierId
+                            productperleverancier ppl ON l.id = ppl.leverancierId
                         GROUP BY
-                            leverancier.id, leverancier.naam, leverancier.contactPersoon, leverancier.leverancierNummer, leverancier.mobiel
+                            l.id, l.naam, l.contactPersoon, l.leverancierNummer, l.mobiel
                         ORDER BY
                             ProductCount DESC;
                     END");
@@ -118,47 +118,68 @@ return new class extends Migration {
         DB::unprepared("CREATE PROCEDURE getOverzicht()
                     BEGIN
                         SELECT
-                            Product.Id,
-                            Product.Barcode,
-                            Product.Naam,
-                            Magazijn.VerpakkingsEenheid,
-                            IFNULL(Magazijn.AantalAanwezig, 0) AS AantalAanwezig
+                            p.Id,
+                            p.Barcode,
+                            p.Naam,
+                            m.VerpakkingsEenheid,
+                            IFNULL(m.AantalAanwezig, 0) AS AantalAanwezig
                         FROM
-                            Product
+                            product p
                         LEFT JOIN
-                            Magazijn ON Product.Id = Magazijn.ProductId
+                            magazijn m ON p.Id = m.ProductId
                         ORDER BY
-                            Product.Barcode ASC;
+                            p.Barcode ASC;
                     END");
 
         DB::select("DROP PROCEDURE IF EXISTS getLeveringen");
         DB::unprepared("CREATE PROCEDURE getLeveringen(IN l_id INT)
                     BEGIN
                         SELECT
-                            product.id AS Pid,
-                            product.naam AS PNaam,
-                            magazijn.VerpakkingsEenheid AS VerpakkingsEenheid,
-                            productperleverancier.datumLevering AS DatumLevering,
-                            IFNULL(magazijn.AantalAanwezig, 0) AS AantalAanwezig
+                            p.id AS Pid,
+                            p.naam AS PNaam,
+                            m.VerpakkingsEenheid AS VerpakkingsEenheid,
+                            ppl.datumLevering AS DatumLevering,
+                            IFNULL(m.AantalAanwezig, 0) AS AantalAanwezig
                         FROM
-                            leverancier
+                            leverancier l
                         JOIN
-                            productperleverancier ON leverancier.id = productperleverancier.LeverancierId
+                            productperleverancier ppl ON l.id = ppl.LeverancierId
                         JOIN
-                            product ON productperleverancier.productId = product.id
+                            product p ON ppl.productId = p.id
                         JOIN
-                            magazijn ON product.id = magazijn.productId
+                            magazijn m ON p.id = m.productId
                         JOIN
                             (SELECT productId, MAX(datumLevering) as maxDatumLevering
                              FROM productperleverancier
                              GROUP BY productId) as sub
                         ON
-                            productperleverancier.productId = sub.productId AND
-                            productperleverancier.datumLevering = sub.maxDatumLevering
+                            ppl.productId = sub.productId AND
+                            ppl.datumLevering = sub.maxDatumLevering
                         WHERE
-                            leverancier.id = l_id
+                            l.id = l_id
                         ORDER BY
                             AantalAanwezig DESC;
+                    END");
+
+        DB::select("DROP PROCEDURE IF EXISTS getLeverancierInfo");
+        DB::unprepared("CREATE PROCEDURE getLeverancierInfo(IN l_id INT)
+                    BEGIN
+                        SELECT
+                            l.naam AS Lnaam,
+                            l.contactPersoon,
+                            l.leverancierNummer,
+                            l.mobiel,
+                            c.id AS contactId,
+                            c.straat,
+                            c.huisnummer,
+                            c.postcode,
+                            c.stad
+                        FROM
+                            leverancier l
+                        INNER JOIN
+                            contact c ON l.contactId = c.id
+                        WHERE
+                            l.id = l_id;
                     END");
     }
 
@@ -175,5 +196,6 @@ return new class extends Migration {
         DB::unprepared("DROP PROCEDURE IF EXISTS getLeverancierByProductId");
         DB::unprepared("DROP PROCEDURE IF EXISTS getOverzicht");
         DB::unprepared("DROP PROCEDURE IF EXISTS getLeveringen");
+        DB::unprepared("DROP PROCEDURE IF EXISTS getLeverancierInfo");
     }
 };
