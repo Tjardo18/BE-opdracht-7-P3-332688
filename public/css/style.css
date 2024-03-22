@@ -150,7 +150,7 @@ label {
 
 input[type="number"],
 input[type="date"],
-input[type="text"]{
+input[type="text"] {
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -159,7 +159,7 @@ input[type="text"]{
     border-radius: 4px;
 }
 
-input[type="submit"] {
+input[type="submit"], .button {
     width: fit-content;
     padding: 0 10px;
     border-radius: 12px;
@@ -171,4 +171,18 @@ input[type="submit"] {
     font-family: 'Mochiy Pop One', sans-serif;
     text-transform: uppercase;
     font-size: 1.5rem;
+}
+
+.snel {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.snel .button {
+    align-self: flex-start;
+}
+
+.snel input[type="submit"] {
+    align-self: flex-end;
 }

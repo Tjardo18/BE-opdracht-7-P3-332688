@@ -56,9 +56,10 @@
         <input type="text" name="stad" id="stad"
                value="{{ $stad }}" required>
 
-        <input type="submit" value="Wijzig" style="align-self: flex-start">
-        <a href="{{ route('leverancier-overzicht.index') }}">Terug</a>
-        <a href="{{ url('/') }}">HOME</a>
+        <div class="snel">
+            <a class="button" href="/leverancier-overzicht">Terug</a>
+            <input type="submit" value="Wijzig">
+        </div>
     </form>
 
 </div>
